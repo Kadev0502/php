@@ -1,0 +1,15 @@
+<?php
+echo "<pre>";
+print_r( $_POST );
+echo "</pre>";
+
+$json = file_get_contents( 'todo.json' );
+$jsonArray = json_decode( $json, TRUE );
+
+$todoName = $_POST[ 'todo_name' ];
+//delete todoList
+unset($jsonArray[$todoName]);
+file_put_contents( 'todo.json', json_encode( $jsonArray,
+                                             JSON_PRETTY_PRINT ) );
+
+header( 'Location: index.php' );
